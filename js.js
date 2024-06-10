@@ -34,23 +34,23 @@ function ckSvg(e) {
 
         if (c.length == 4) {
             $('#myModalSave').modal('show')
-
+            
         }
-
+        
     }
 }
-function closePoly() {
-    var zonNum = document.getElementById("zonNum")
-    var zonType = document.getElementById("zonType")
-    zonNum.value = ""
-    zonType.value = ""
+function closePoly(){
+    var zonNum=document.getElementById("zonNum")
+    var zonType=document.getElementById("zonType")
+    zonNum.value=""
+    zonType.value=""
     $('#myModalSave').modal('toggle')
     poly.remove()
-    poly = null
+    poly=null
 }
-function savePoly() {
-    var zonNum = document.getElementById("zonNum")
-    var zonType = document.getElementById("zonType")
+function savePoly(){
+    var zonNum=document.getElementById("zonNum")
+    var zonType=document.getElementById("zonType")
 
     //TODO SEND REQEST 
     poly.getAttribute("points")
@@ -59,15 +59,15 @@ function savePoly() {
 
     //END TODO
 
-    zonNum.value = ""
-    zonType.value = ""
+    zonNum.value=""
+    zonType.value=""
     $('#myModalSave').modal('toggle')
     poly = null
 }
 
 window.onload = () => {
     var scrollView = document.getElementById("scrollView")
-    scrollView.addEventListener("dblclick", (event) => { ckSvg(event) });
+    scrollView.addEventListener("dblclick", (event) => {ckSvg(event)});    
 }
 
 
@@ -93,39 +93,34 @@ function MouseUpHandler(e, obj) {
 }
 
 function MouseMoveHandler(e, obj) {
-    try {
-        e = e || window.event; //window.event for IE
-        if (scrollingTheView) {
-            var dx = e.clientX - oldPos.x;
-            var dy = e.clientY - oldPos.y;
-            oldPos.x = e.clientX;
-            oldPos.y = e.clientY;
+    e = e || window.event; //window.event for IE
+    if (scrollingTheView) {
+        var dx = e.clientX - oldPos.x;
+        var dy = e.clientY - oldPos.y;
+        oldPos.x = e.clientX;
+        oldPos.y = e.clientY;
 
 
-            //svgElementId.style.left = boardOffset.x.toString() + "px";
-            //svgElementId.style.top = boardOffset.y.toString() + "px";
-            const svg = document.querySelector('svg');
-            var t = svg.getAttribute('viewBox').split(' ')
+        //svgElementId.style.left = boardOffset.x.toString() + "px";
+        //svgElementId.style.top = boardOffset.y.toString() + "px";
+        const svg = document.querySelector('svg');
+        var t = svg.getAttribute('viewBox').split(' ')
 
-            var x = parseFloat(t[0])
-            var y = parseFloat(t[1])
-            var w = parseFloat(t[2])
-            var h = parseFloat(t[3])
+        var x = parseFloat(t[0])
+        var y = parseFloat(t[1])
+        var w = parseFloat(t[2])
+        var h = parseFloat(t[3])
 
-            var k = w / 1000
+        var k = w / 1000
 
-            x -= dx * k;
-            y -= dy * k;
+        x -= dx * k;
+        y -= dy * k;
 
-            svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
+        svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
 
-            return false;
-        }
-        return true;
+        return false;
     }
-    catch (error) {
-
-    }
+    return true;
 }
 
 window.addEventListener("DOMContentLoaded", (event) => {
